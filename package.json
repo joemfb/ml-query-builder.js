@@ -1,0 +1,15 @@
+{
+  "name": "ml-query-builder.js",
+  "version": "1.0.0-0",
+  "description": "a lightweight, browser-friendly MarkLogic structured-query builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "marklogic",
+    "structured query"
+  ],
+  "author": "joemfb",
+  "license": "Apache-2.0"
+}
