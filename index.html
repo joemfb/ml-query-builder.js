@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.4.0">
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <article>
+            <h3>ml-query-builder.js</h3>
+            <p>a lightweight MarkLogic structured query builder, offered as a browser-friendly alternative to the official <a href="//github.com/marklogic/node-client-api">marklogic client</a></p>
+            <p>install from npm:</p>
+            <pre class="prettyprint source lang-sh"><code>npm install ml-query-builder.js</code></pre><pre class="prettyprint source lang-js"><code>var qb = require('ml-query-builder.js')
+
+qb.where(qb.and())
+// => {query:{queries:[{and-query:{queries:[]}}]}}</code></pre>
+            <p>A compatible subset of the official <code>queryBuilder</code> is provided:</p>
+            <ul>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#where"><code>where()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#or"><code>and()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#or"><code>or()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#not"><code>not()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#documentFragment"><code>documentFragment()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#propertiesFragment"><code>propertiesFragment()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#locksFragment"><code>locksFragment()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#collection"><code>collection()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#directory"><code>directory()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#document"><code>document()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#boost"><code>boost()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#qname"><code>qname()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#element"><code>element()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#datatype"><code>datatype()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#range"><code>range()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#rangeOptions"><code>rangeOptions()</code></a></li>
+              <li><a href="//docs.marklogic.com/jsdoc/queryBuilder.html#term"><code>term()</code></a></li>
+            </ul>
+            <p>Additionally, extension methods are provided to support server-side query options:</p>
+            <ul>
+              <li><code>ext.combined()</code> - <em>builds a <a href="//docs.marklogic.com/guide/rest-dev/search#id_69918">combined query</a></em></li>
+              <li><code>ext.rangeConstraint()</code> - <em>builds a <a href="//docs.marklogic.com/guide/search-dev/structured-query#id_38268"><code>range-constraint-query</code></a></em></li>
+              <li><code>ext.valueConstraint()</code> - <em>builds a <a href="//docs.marklogic.com/guide/search-dev/structured-query#id_63420"><code>value-constraint-query</code></a></em></li>
+              <li><code>ext.wordConstraint()</code> - <em>builds a <a href="//docs.marklogic.com/guide/search-dev/structured-query#id_66833"><code>word-constraint-query</code></a></em></li>
+              <li><code>ext.collectionConstraint()</code> - <em>builds a <a href="//docs.marklogic.com/guide/search-dev/structured-query#id_30776"><code>collection-constraint-query</code></a></em></li>
+              <li><code>ext.customConstraint()</code> - <em>builds a <a href="//docs.marklogic.com/guide/search-dev/structured-query#id_28778"><code>custom-constraint-query</code></a></em></li>
+              <li><code>ext.geospatialValues()</code> - <em>normalizes geospatial values</em></li>
+              <li><code>ext.geospatialConstraint()</code> - <em>builds a <a href="//docs.marklogic.com/guide/search-dev/structured-query#id_88775"><code>geospatial-constraint-query</code></a></em></li>
+              <li><code>ext.constraint()</code> - <em>gets a constraint query function by type</em></li>
+              <li><code>ext.operatorState()</code> - <em>builds an <a href="//docs.marklogic.com/guide/search-dev/structured-query#id_45570"><code>operator-state</code> query component</a></em></li>
+            </ul>
+            <p><em>adapted from the <code>MLQueryBuilder</code> angular service in <a href="//github.com/joemfb/ml-common-ng/tree/3dab8fbbd3aab450c2b63aac5cdf581971e1bec1">ml-common-ng#v1.0.1</a></em></p>
+          </article>
+          <div class="symbol-index">
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="extensions">extensions</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html" class="!symbol-index-name">extensions</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.collectionConstraint" class="!symbol-index-name">extensions.<wbr>collectionConstraint(name, values)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.combined" class="!symbol-index-name">extensions.<wbr>combined(query[, qtext][, options])</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.constraint" class="!symbol-index-name">extensions.<wbr>constraint(type)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.customConstraint" class="!symbol-index-name">extensions.<wbr>customConstraint(name, values)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.geospatialConstraint" class="!symbol-index-name">extensions.<wbr>geospatialConstraint(name, .<wbr>.<wbr>.<wbr>values)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.geospatialValues" class="!symbol-index-name">extensions.<wbr>geospatialValues(.<wbr>.<wbr>.<wbr>values)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.operatorState" class="!symbol-index-name">extensions.<wbr>operatorState(name, stateName)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.rangeConstraint" class="!symbol-index-name">extensions.<wbr>rangeConstraint(name[, operator], values[, options])</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.valueConstraint" class="!symbol-index-name">extensions.<wbr>valueConstraint(name, values)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-extensions.html#.wordConstraint" class="!symbol-index-name">extensions.<wbr>wordConstraint(name, values)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="queryBuilder">queryBuilder</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html" class="!symbol-index-name">queryBuilder</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.and" class="!symbol-index-name">queryBuilder.<wbr>and(.<wbr>.<wbr>.<wbr>queries)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.boost" class="!symbol-index-name">queryBuilder.<wbr>boost(matching, boosting)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.collection" class="!symbol-index-name">queryBuilder.<wbr>collection(uris)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.datatype" class="!symbol-index-name">queryBuilder.<wbr>datatype()</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.directory" class="!symbol-index-name">queryBuilder.<wbr>directory(uris[, infinite])</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.document" class="!symbol-index-name">queryBuilder.<wbr>document(.<wbr>.<wbr>.<wbr>uris)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.documentFragment" class="!symbol-index-name">queryBuilder.<wbr>documentFragment(query)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.element" class="!symbol-index-name">queryBuilder.<wbr>element()</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.locksFragment" class="!symbol-index-name">queryBuilder.<wbr>locksFragment(query)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.not" class="!symbol-index-name">queryBuilder.<wbr>not(query)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.or" class="!symbol-index-name">queryBuilder.<wbr>or(.<wbr>.<wbr>.<wbr>queries)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.propertiesFragment" class="!symbol-index-name">queryBuilder.<wbr>propertiesFragment(query)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.qname" class="!symbol-index-name">queryBuilder.<wbr>qname()</a>
+            </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.range" class="!symbol-index-name">queryBuilder.<wbr>range(indexedName[, datatype][, operator][, .<wbr>.<wbr>.<wbr>value][, rangeOptions])</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.rangeOptions" class="!symbol-index-name">queryBuilder.<wbr>rangeOptions()</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.term" class="!symbol-index-name">queryBuilder.<wbr>term(.<wbr>.<wbr>.<wbr>terms)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#.where" class="!symbol-index-name">queryBuilder.<wbr>where(.<wbr>.<wbr>.<wbr>queries)</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-queryBuilder.html#~ext" class="!symbol-index-name">queryBuilder~<wbr>ext</a>
+            </dt>
+                      <dd>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.4.0 on May 27, 2016.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

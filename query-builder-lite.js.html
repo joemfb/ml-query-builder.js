@@ -1,0 +1,444 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.4.0">
+  <meta charset="utf-8">
+  <title>Source: query-builder-lite.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: query-builder-lite.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>&#x27;use strict&#x27;
+
+/** @module queryBuilder */
+
+var asArray &#x3D; require(&#x27;./utils.js&#x27;).asArray
+
+/** @member {module:extensions} ext */
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query structured query}
+ * from a set of sub-queries
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#where
+ *
+ * @static
+ * @param {...Object} queries - sub queries
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query structured query}
+ */
+function where () {
+  var args &#x3D; asArray.apply(null, arguments)
+  return {
+    &#x27;query&#x27;: {
+      &#x27;queries&#x27;: args
+    }
+  }
+}
+
+/**
+ * Builds an {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_83674 &#x60;and-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#and
+ *
+ * @static
+ * @param {...Object} queries - sub queries
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_64259 or-query}
+ */
+function and () {
+  var args &#x3D; asArray.apply(null, arguments)
+  return {
+    &#x27;and-query&#x27;: {
+      &#x27;queries&#x27;: args
+    }
+  }
+}
+
+/**
+ * Builds an {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_64259 &#x60;or-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#or
+ *
+ * @static
+ * @param {...Object} queries - sub queries
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_64259 or-query}
+ */
+function or () {
+  var args &#x3D; asArray.apply(null, arguments)
+  return {
+    &#x27;or-query&#x27;: {
+      &#x27;queries&#x27;: args
+    }
+  }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_39488 &#x60;not-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#not
+ *
+ * @static
+ * @param {Object} query - sub query to be negated
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_39488 not-query}
+ */
+function not (query) {
+  return {
+    &#x27;not-query&#x27;: query
+  }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_30556 &#x60;document-fragment-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#documentFragment
+ *
+ * @static
+ * @param {Object} query - sub query to be constrained to document fragments
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_30556 document-fragment-query}
+ */
+function documentFragment (query) {
+  return { &#x27;document-fragment-query&#x27;: query }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_67222 &#x60;properties-fragment-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#propertiesFragment
+ *
+ * @static
+ * @param {Object} query - sub query to be constrained to properties fragments
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_67222 properties-fragment-query}
+ */
+function propertiesFragment (query) {
+  return { &#x27;properties-fragment-query&#x27;: query }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_53441 &#x60;locks-fragment-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#locksFragment
+ *
+ * @static
+ * @param {Object} query - sub query to be constrained to document locks
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_53441 locks-fragment-query}
+ */
+function locksFragment (query) {
+  return { &#x27;locks-fragment-query&#x27;: query }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_76890 &#x60;collection-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#collection
+ *
+ * @static
+ * @param {...String|Array&amp;lt;String&gt;} uris - the collection URIs to query (logical OR)
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_76890 collection-query}
+ */
+function collection () {
+  var args &#x3D; asArray.apply(null, arguments)
+  return {
+    &#x27;collection-query&#x27;: {
+      &#x27;uri&#x27;: args
+    }
+  }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_94821 &#x60;directory-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#directory
+ *
+ * @static
+ * @param {...String|Array&amp;lt;String&gt;} uris - the directory URIs to query (logical OR)
+ * @param {Boolean} [infinite] - whether to query into all sub-directories (defaults to &#x60;true&#x60;)
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_94821 directory-query}
+ */
+function directory () {
+  var args &#x3D; asArray.apply(null, arguments)
+  var last &#x3D; args[args.length - 1]
+  var infinite &#x3D; true
+
+  if (last &#x3D;&#x3D;&#x3D; true || last &#x3D;&#x3D;&#x3D; false) {
+    infinite &#x3D; last
+    args.pop()
+  }
+
+  // horrible hack to support an array of URIs
+  if (args.length &#x3D;&#x3D;&#x3D; 1 &amp;amp;&amp;amp; Array.isArray(args[0])) {
+    args &#x3D; args[0]
+  }
+
+  return {
+    &#x27;directory-query&#x27;: {
+      &#x27;uri&#x27;: args,
+      &#x27;infinite&#x27;: infinite
+    }
+  }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_27172 &#x60;document-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#document
+ *
+ * @static
+ * @param {...String} uris - document URIs to match
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_27172 document-query}
+ */
+function document () {
+  var args &#x3D; asArray.apply(null, arguments)
+  return {
+    &#x27;document-query&#x27;: {
+      &#x27;uri&#x27;: args
+    }
+  }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_25949 &#x60;boost-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#boost
+ *
+ * @static
+ * @param {Object} matching - matching query
+ * @param {Object} boosting - boosting query
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_25949 boost-query}
+ */
+function boost (matching, boosting) {
+  return {
+    &#x27;boost-query&#x27;: {
+      &#x27;matching-query&#x27;: matching,
+      &#x27;boosting-query&#x27;: boosting
+    }
+  }
+}
+
+/**
+ *
+ * @static
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#qname
+ */
+function qname (ns, name) {
+  var args &#x3D; asArray.apply(null, arguments)
+
+  if (args.length &#x3D;&#x3D;&#x3D; 1) {
+    return { ns: null, name: args[0] }
+  } else {
+    return { ns: args[0], name: args[1] }
+  }
+}
+
+/**
+ *
+ * @static
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#element
+ */
+function element () {
+  var args &#x3D; asArray.apply(null, arguments)
+  var qname
+
+  if (args.length &#x3D;&#x3D;&#x3D; 1) {
+    if (args[0].ns || args[0].name) {
+      qname &#x3D; args[0]
+    } else {
+      qname &#x3D; this.qname(args[0])
+    }
+  } else {
+    qname &#x3D; this.qname(args[0], args[1])
+  }
+
+  return { element: qname }
+}
+
+/**
+ *
+ * @static
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#datatype
+ */
+function datatype (type, collation) {
+  var datatypes &#x3D; [
+    &#x27;anyURI&#x27;,
+    &#x27;date&#x27;,
+    &#x27;dateTime&#x27;,
+    &#x27;dayTimeDuration&#x27;,
+    &#x27;decimal&#x27;,
+    &#x27;double&#x27;,
+    &#x27;float&#x27;,
+    &#x27;gDay&#x27;,
+    &#x27;gMonth&#x27;,
+    &#x27;gMonthDay&#x27;,
+    &#x27;gYear&#x27;,
+    &#x27;gYearMonth&#x27;,
+    &#x27;int&#x27;,
+    &#x27;long&#x27;,
+    &#x27;string&#x27;,
+    &#x27;time&#x27;,
+    &#x27;unsignedInt&#x27;,
+    &#x27;unsignedLong&#x27;,
+    &#x27;yearMonthDuration&#x27;
+  ]
+
+  if (datatypes.indexOf(type) &gt; -1) {
+    type &#x3D; &#x27;xs:&#x27; + type
+  } else {
+    throw new TypeError(&#x27;Unknown datatype: &#x27; + type)
+  }
+
+  return {
+    datatype: type,
+    collation: collation
+  }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_83393 &#x60;range-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#range
+ *
+ * @static
+ * @param {Object|String|Array&amp;lt;String&gt;} indexedName - the name of a range index
+ * @param {Object} [datatype] - the type/collation of the range index (as returned by {@link MLQueryBuilder#datatype})
+ * @param {String} [operator] - the query operator
+ * @param {...*} [value] - the values to compare
+ * @param {Object} [rangeOptions] - the range query options (as returned by {@link MLQueryBuilder#rangeOptions})
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_83393 range-query}
+ */
+function range () {
+  var comparisons &#x3D; {
+    &#x27;&amp;lt;&#x27;: &#x27;LT&#x27;,
+    &#x27;&amp;lt;&#x3D;&#x27;: &#x27;LE&#x27;,
+    &#x27;&gt;&#x27;: &#x27;GT&#x27;,
+    &#x27;&gt;&#x3D;&#x27;: &#x27;GE&#x27;,
+    &#x27;&#x3D;&#x27;: &#x27;EQ&#x27;,
+    &#x27;!&#x3D;&#x27;: &#x27;NE&#x27;
+  }
+
+  var args &#x3D; asArray.apply(null, arguments)
+
+  var indexedName &#x3D; args.shift()
+
+  // TODO: attribute/field/path
+  if (!indexedName.element) {
+    indexedName &#x3D; { &#x27;json-property&#x27;: indexedName }
+  }
+
+  var datatype &#x3D; args.shift()
+  var operator &#x3D; null
+  var values &#x3D; []
+
+  if (datatype &amp;amp;&amp;amp; datatype.datatype) {
+    datatype &#x3D; { type: datatype.datatype, collation: datatype.collation }
+    operator &#x3D; args.shift()
+  } else {
+    operator &#x3D; datatype
+    datatype &#x3D; null
+  }
+
+  if (!comparisons[ operator ]) {
+    Array.prototype.push.apply(values, asArray(operator))
+    operator &#x3D; null
+  }
+
+  var options &#x3D; []
+
+  args.forEach(function (arg) {
+    if (arg[&#x27;range-option&#x27;]) {
+      Array.prototype.push.apply(options, asArray(arg[&#x27;range-option&#x27;]))
+    } else {
+      Array.prototype.push.apply(values, asArray(arg))
+    }
+  })
+
+  var query &#x3D; {
+    &#x27;range-query&#x27;: {
+      &#x27;range-operator&#x27;: comparisons[ operator ] || &#x27;EQ&#x27;,
+      &#x27;value&#x27;: values,
+      &#x27;range-option&#x27;: options
+    }
+  }
+
+  Object.assign(query[&#x27;range-query&#x27;], indexedName, datatype)
+
+  return query
+}
+
+/**
+ *
+ * @static
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#rangeOptions
+ */
+function rangeOptions (ns, name) {
+  var args &#x3D; asArray.apply(null, arguments)
+
+  return { &#x27;range-option&#x27;: args }
+}
+
+/**
+ * Builds a {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_56027 &#x60;term-query&#x60;}
+ * @see http://docs.marklogic.com/jsdoc/queryBuilder.html#term
+ *
+ * @static
+ * @param {...String} terms - terms to match (logical OR)
+ * @return {Object} {@link http://docs.marklogic.com/guide/search-dev/structured-query#id_56027 term-query}
+ */
+function term () {
+  var args &#x3D; asArray.apply(null, arguments)
+  return {
+    &#x27;term-query&#x27;: {
+      &#x27;text&#x27;: args
+    }
+  }
+}
+
+module.exports &#x3D; {
+  where: where,
+  and: and,
+  or: or,
+  not: not,
+  documentFragment: documentFragment,
+  propertiesFragment: propertiesFragment,
+  locksFragment: locksFragment,
+  collection: collection,
+  directory: directory,
+  document: document,
+  boost: boost,
+  qname: qname,
+  element: element,
+  datatype: datatype,
+  range: range,
+  rangeOptions: rangeOptions,
+  term: term
+}
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.4.0 on May 27, 2016.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>
