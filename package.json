@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "standard *.js lib/*.js test/*.js",
-    "test": "istanbul cover _mocha"
+    "test": "istanbul cover _mocha",
+    "build:docs": "jsdoc -c jsdoc.conf.json",
+    "release:docs": "gh-pages -d docs/"
   },
   "keywords": [
     "marklogic",
@@ -15,7 +17,10 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "chai": "^3.5.0",
+    "gh-pages": "^0.11.0",
     "istanbul": "^0.4.3",
+    "jsdoc": "^3.4.0",
+    "jsdoc-baseline": "hegemonic/jsdoc-baseline#12d1ca0",
     "mocha": "^2.4.5",
     "standard": "^7.1.0"
   }
